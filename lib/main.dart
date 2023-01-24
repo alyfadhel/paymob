@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paymob/bloc/cubit/observer.dart';
+import 'package:paymob/network/remote/dio_helper.dart';
 import 'package:paymob/screens/home.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await DioHelper().init();
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
