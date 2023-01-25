@@ -6,6 +6,7 @@ import 'package:paymob/bloc/cubit/states.dart';
 import 'package:paymob/widgets/my_button.dart';
 import 'package:paymob/widgets/my_form_field.dart';
 
+
 var firstNameController = TextEditingController();
 var lastNameController = TextEditingController();
 var emailNameController = TextEditingController();
@@ -19,11 +20,11 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
-      PayMobCubit()
-        ..getAuth(),
+      create: (BuildContext context) => PayMobCubit()..getAuth(),
       child: BlocConsumer<PayMobCubit, PayMobStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+
+        },
         builder: (context, state) {
           var cubit = PayMobCubit.get(context);
           return Scaffold(
@@ -33,8 +34,7 @@ class HomeScreen extends StatelessWidget {
               centerTitle: true,
               title: Text(
                 'PayMob',
-                style: Theme
-                    .of(context)
+                style: Theme.of(context)
                     .textTheme
                     .titleLarge!
                     .copyWith(color: Colors.white),
@@ -148,32 +148,27 @@ class HomeScreen extends StatelessWidget {
                       ),
                       ConditionalBuilder(
                         condition: state is! GetRegistrationOrderLoadingState,
-                        builder: (context) =>
-                            MyButton(
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  cubit.getOrderId(
-                                      firstName: firstNameController.text,
-                                      lastName: lastNameController.text,
-                                      email: emailNameController.text,
-                                      phone: phoneNameController.text,
-                                      price: priceNameController.text,
-                                  );
-                                }
-                              },
-                              text: 'register',
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                color: Colors.white,
-                              ),
-                              radius: 20.0,
-                              background: Colors.purple.shade300,
-                            ),
-                        fallback: (context) =>
-                        const Center(
+                        builder: (context) => MyButton(
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              cubit.getOrderId(
+                                firstName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                email: emailNameController.text,
+                                phone: phoneNameController.text,
+                                price: priceNameController.text,
+                              );
+                            }
+                          },
+                          text: 'register',
+                          style:
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
+                                    color: Colors.white,
+                                  ),
+                          radius: 20.0,
+                          background: Colors.purple.shade300,
+                        ),
+                        fallback: (context) => const Center(
                           child: CircularProgressIndicator(),
                         ),
                       ),
@@ -188,3 +183,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+//95795843

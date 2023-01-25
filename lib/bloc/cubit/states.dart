@@ -21,3 +21,22 @@ class GetRegistrationOrderErrorState extends PayMobStates
 
   GetRegistrationOrderErrorState(this.Error);
 }
+
+class GetPaymentRequestLoadingState extends PayMobStates{}
+class GetPaymentRequestSuccessState extends PayMobStates{}
+class GetPaymentRequestErrorState extends PayMobStates
+{
+  final String error;
+
+  GetPaymentRequestErrorState(this.error);
+
+}
+
+class GetRefCodeLoadingState extends PayMobStates{}
+class GetRefCodeSuccessState extends PayMobStates{}
+class GetRefCodeErrorState extends PayMobStates
+{
+  final String error;
+
+  GetRefCodeErrorState(this.error);
+}
