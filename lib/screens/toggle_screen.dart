@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paymob/bloc/cubit/cubit.dart';
 import 'package:paymob/bloc/cubit/states.dart';
 import 'package:paymob/network/constance/constance.dart';
+import 'package:paymob/screens/ref_screen.dart';
+import 'package:paymob/screens/visa_screen.dart';
+import 'package:paymob/widgets/show_snack.dart';
 
 class ToggleScreen extends StatelessWidget {
   const ToggleScreen({Key? key}) : super(key: key);
@@ -14,22 +17,27 @@ class ToggleScreen extends StatelessWidget {
       child: SafeArea(
         child: BlocConsumer<PayMobCubit, PayMobStates>(
           listener: (context, state) {
-            // if (state is PaymentRefCodeSuccessStates) {
-            //   showSnackBar(
-            //     context: context,
-            //     text: "Success get ref code ",
-            //     color: Colors.amber.shade400,
-            //   );
-            //   navigateAndFinish(context, const ReferenceScreen());
-            // }
-            // if (state is PaymentRefCodeErrorStates) {
-            //   showSnackBar(
-            //     context: context,
-            //     text: "Error get ref code ",
-            //     color: Colors.red,
-            //   );
-            // }
+            if (state is GetRefCodeSuccessState) {
+              showSnackBar(
+                context: context,
+                text: "Success get ref code ",
+                color: Colors.amber.shade400,
+              );
 
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ReferenceScreen(),
+                ),
+              );
+            }
+            if (state is GetRefCodeErrorState) {
+              showSnackBar(
+                context: context,
+                text: "Error get ref code ",
+                color: Colors.red,
+              );
+            }
           },
           builder: (context, state) {
             var cubit = PayMobCubit.get(context);
@@ -43,7 +51,7 @@ class ToggleScreen extends StatelessWidget {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          //cubit.getRefCode();
+                          cubit.getRefCode();
                         },
                         child: Container(
                           width: double.infinity,
@@ -51,7 +59,7 @@ class ToggleScreen extends StatelessWidget {
                             color: Colors.black12,
                             borderRadius: BorderRadius.circular(15.0),
                             border:
-                            Border.all(color: Colors.black87, width: 2.0),
+                                Border.all(color: Colors.black87, width: 2.0),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +84,12 @@ class ToggleScreen extends StatelessWidget {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                         // navigateAndFinish(context, const VisaScreen());
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const VisaScreen(),
+                            ),
+                          );
                         },
                         child: Container(
                           width: double.infinity,

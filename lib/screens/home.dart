@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paymob/bloc/cubit/cubit.dart';
 import 'package:paymob/bloc/cubit/states.dart';
+import 'package:paymob/screens/toggle_screen.dart';
 import 'package:paymob/widgets/my_button.dart';
 import 'package:paymob/widgets/my_form_field.dart';
-
 
 var firstNameController = TextEditingController();
 var lastNameController = TextEditingController();
@@ -23,7 +23,14 @@ class HomeScreen extends StatelessWidget {
       create: (BuildContext context) => PayMobCubit()..getAuth(),
       child: BlocConsumer<PayMobCubit, PayMobStates>(
         listener: (context, state) {
-
+          if (state is GetPaymentRequestSuccessState) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ToggleScreen(),
+              ),
+            );
+          }
         },
         builder: (context, state) {
           var cubit = PayMobCubit.get(context);
